@@ -3,12 +3,15 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  // get auth state from redux
+  const { token } = useSelector((state) => state.auth);
+
+  // ❌ Not logged in → go to login
   if (!token) {
-    // If not logged in, redirect to login page
     return <Navigate to="/login" replace />;
   }
 
+  // ✅ Logged in → allow access
   return children;
 };
 

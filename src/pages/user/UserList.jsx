@@ -59,6 +59,7 @@ const UserList = () => {
       email: "",
       department: "",
     });
+    dispatch(fetchPosts());
   };
 
   const handleDelete = (id) => {

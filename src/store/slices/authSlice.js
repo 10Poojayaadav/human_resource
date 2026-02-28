@@ -20,6 +20,14 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (userData) => {
+    const response = await post("register", userData);
+    return response.data;
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
