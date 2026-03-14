@@ -23,7 +23,6 @@ const Register = () => {
         })
       ).unwrap();
 
-      // redirect after successful register
       navigate("/login");
     } catch (err) {
       console.error("Register failed:", err);
@@ -31,65 +30,92 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-500">
-      <div className="bg-white shadow-md rounded-lg p-8 w-96">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Register
-        </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 px-4">
 
-        <form onSubmit={handleRegister}>
-          {/* NAME */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Name
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+
+        {/* Title */}
+        <div className="text-center mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">
+            HRMS 
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">
+            Create your account
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleRegister} className="space-y-5">
+
+          {/* Name */}
+          <div>
+            <label className="text-sm font-medium text-gray-600">
+              Full Name
             </label>
+
             <input
               type="text"
               value={name}
-              className="mt-1 w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) => setName(e.target.value)}
-              placeholder="Full Name"
+              placeholder="Enter your full name"
               required
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition"
             />
           </div>
 
-          {/* EMAIL */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Email Address
+          {/* Email */}
+          <div>
+            <label className="text-sm font-medium text-gray-600">
+              Email
             </label>
+
             <input
               type="email"
               value={email}
-              className="mt-1 w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              placeholder="Enter your email"
               required
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition"
             />
           </div>
 
-          {/* PASSWORD */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">
+          {/* Password */}
+          <div>
+            <label className="text-sm font-medium text-gray-600">
               Password
             </label>
+
             <input
               type="password"
               value={password}
-              className="mt-1 w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
+              placeholder="Create a password"
               required
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none transition"
             />
           </div>
 
+          {/* Button */}
           <button
             type="submit"
-            className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full bg-green-400 hover:bg-green-500 text-black font-semibold py-2 rounded-lg transition duration-200"
           >
             Register
           </button>
+
         </form>
+
+        {/* Login link */}
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="text-blue-600 cursor-pointer hover:underline"
+          >
+            Login
+          </span>
+        </p>
+
       </div>
     </div>
   );

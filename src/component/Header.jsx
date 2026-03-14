@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FaClock, FaCloudSun } from "react-icons/fa";
 
 const Header = () => {
   const [time, setTime] = useState(new Date());
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const API_KEY = "d4d64c6257b1849abe795e629d9f7c64";
+
+  const API_KEY = "YOUR_API_KEY";
   const LOCATION = "Bengaluru";
 
   useEffect(() => {
@@ -15,62 +16,58 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${LOCATION}&units=metric&appid=${API_KEY}`
         );
-        console.log("API Response: ", response.data);
         setWeather(response.data);
       } catch (err) {
-        console.error(
-          "Weather Fetch Error: ",
-          err.response ? err.response.data : err.message
-        );
-        setError("Failed to fetch weather data");
+        setError("Weather unavailable");
       }
     };
 
     fetchWeather();
-  }, [LOCATION, API_KEY]);
+  }, []);
 
   return (
-    <div className="flex flex-col items-end space-y-4 p-4 bg-gradient-to-r from-white via-gray-200 to-gray-400 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-600 rounded-lg shadow-md text-black dark:text-white">
-   
-  
-      <div className="bg-white bg-opacity-20 p-2 rounded-lg shadow-md text-right">
-        {weather ? (
-          <div>
-            <p className="text-lg font-medium">
-              🌡️ Temperature:
-              <span className="font-bold"> {weather.main.temp}°C</span>
-            </p>
-            <p className="text-lg font-medium mt-2">
-              🌥️ Condition:
-              <span className="capitalize font-bold">
-                {" "}
-                {weather.weather[0].description}
-              </span>
-            </p>
-          </div>
-        ) : error ? (
-          <p className="text-red-400 font-semibold">{error}</p>
-        ) : (
-          <p className="text-gray-300 font-medium">Loading weather...</p>
-        )}
+    <div className="flex justify-between items-center w-full px-6 py-3 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+
+      {/* Left */}
+      <div>
+        <h1 className="text-xl font-semibold text-gray-700 dark:text-white">
+          Welcome Back 👋
+        </h1>
+        <p className="text-sm text-gray-500">HRMS Dashboard</p>
       </div>
-      <div className="text-2xl font-semibold">{time.toLocaleTimeString()}</div>
+
+      {/* Right */}
+      <div className="flex items-center gap-6">
+
+        {/* Weather */}
+        <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg">
+          <FaCloudSun className="text-yellow-500" />
+
+          {weather ? (
+            <span className="text-sm">
+              {weather.main.temp}°C • {weather.weather[0].main}
+            </span>
+          ) : error ? (
+            <span className="text-sm text-red-400">{error}</span>
+          ) : (
+            <span className="text-sm text-gray-500">Loading...</span>
+          )}
+        </div>
+
+        {/* Clock */}
+        <div className="flex items-center gap-2 bg-green-100 dark:bg-gray-800 px-4 py-2 rounded-lg">
+          <FaClock className="text-green-600" />
+          <span className="font-medium">
+            {time.toLocaleTimeString()}
+          </span>
+        </div>
+
+      </div>
     </div>
   );
 };
