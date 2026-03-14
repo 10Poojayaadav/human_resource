@@ -5,12 +5,10 @@ import { useSelector } from "react-redux";
 const AuthRoute = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
-  // ✅ Already logged in → redirect dashboard
   if (token) {
     return <Navigate to="/" replace />;
   }
 
-  // ❌ Not logged in → allow login/register
   return children;
 };
 

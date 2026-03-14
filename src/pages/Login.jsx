@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(loginUser({ email, password })).unwrap(); // wait for success
+      await dispatch(loginUser({ email, password })).unwrap(); 
       navigate("/"); // only navigate after successful login
     } catch (err) {
       console.error("Login failed:", err);
