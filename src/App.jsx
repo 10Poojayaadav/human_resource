@@ -4,6 +4,7 @@ import AppRouter from "./router";
 import Header from "./component/Header";
 import SideBar from "./component/SideBar";
 import "@fontsource/roboto";
+import { Toaster } from "react-hot-toast";
 import "@fontsource/roboto/700.css";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
 
   return (
     <>
+     <Toaster position="top-right" />
       {hideLayout ? (
         <AppRouter />
       ) : (
